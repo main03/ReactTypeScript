@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Signup.css';
+import {signUp} from '../../Services/Signup'
 
 interface FormValues {
   name: string;
@@ -30,10 +31,14 @@ const SignUpForm: React.FC = () => {
   });
   
 
-  const handleSubmit = (values: FormValues) => {
-    console.log(values);
+  const handleSubmit = async (values: FormValues) => {
+    try {
+      const response = await signUp(values);
+      console.log(response); // Handle the response as needed
+    } catch (error) {
+      console.error(error); // Handle errors
+    }
   };
-
   return (
     <Formik
       initialValues={initialValues}
